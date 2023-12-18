@@ -1,0 +1,82 @@
+import React from 'react';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import CanvasJSReact from 'assets/canvasjs/canvasjs.react';
+import SelectPage from '../../modules/ChartEditor/ChartCarbon/components/SelectPage';
+
+// selectors
+import { activePageSelector } from 'selectors/chartValues.selector';
+import { chartOptionTabSelector } from 'selectors/tabs.selector';
+
+// actions
+import { setActivePage } from 'reducer/chartValues.reducer';
+
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+const LineChartCanvasJS = ({ chartValues }) => {
+  console.log("chartValues: ", chartValues)
+
+
+  const dispatch = useDispatch();
+  const chartOptionTab = useSelector(chartOptionTabSelector);
+  const activePage = useSelector(activePageSelector);
+  const chartValuesLineChart = (chartValues && chartValues[activePage]) || { chartData: [] };
+
+  const handleActivePage = (number) => {
+    dispatch(setActivePage(number));
+  };
+
+  let options = {
+    animationEnabled: true,
+    theme: "light1", // "light1", "dark1", "dark2"
+    title:{
+      text: ""
+    },
+    axisX:{
+      crosshair: {
+        enabled: true,
+        snapToDataPoint: true
+      }
+    },
+    legend:{
+      cursor:"pointer",
+      verticalAlign: "bottom",
+      horizontalAlign: "center",
+      dockInsidePlotArea: false,
+      maxWidth: 500
+    },
+    toolTip:{
+      shared:true
+    },
+    data: chartValuesLineChart.chartData
+  }
+
+  if(!chartOptionTab.options.tooltip) {
+    options = {
+      ...options,
+      toolTip:{
+        shared:false
+      },
+    }
+  }
+
+  return (
+    <>
+      {chartValuesLineChart.chartData.length > 0 && (
+        <LineContainerStyled>
+          <CanvasJSChart key={chartValuesLineChart.chartData.name} options={options} />
+          <div className="pagination">
+            <SelectPage pages={chartValues.map(item => item.name)} activePage={activePage} setActivePage={handleActivePage} />
+          </div>
+        </LineContainerStyled>
+      )}
+    </>
+
+  );
+}
+
+export default LineChartCanvasJS;
+
+const LineContainerStyled = styled.div`
+  width: 100%;
+`;

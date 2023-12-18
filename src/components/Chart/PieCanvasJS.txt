@@ -1,0 +1,41 @@
+import React from 'react'
+import CanvasJSReact from 'assets/canvasjs/canvasjs.react';
+
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+function explodePie (e) {
+	if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+	} else {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+	}
+	e.chart.render();
+
+}
+
+export function PieCanvasJS({  chartValues = [], options = {} }) {
+  const _options = {
+    animationEnabled: true,
+    exportEnabled: true,
+    title: {
+      text: ""
+    },
+    legend:{
+      cursor: "pointer",
+      itemclick: explodePie
+    },
+    data: [{
+      type: "pie",
+      startAngle: 270,
+      showInLegend: options.legend.enabled,
+      toolTipContent: options.tooltip.enabled ? "{name}: <strong>{y}%</strong>" : null,
+      yValueFormatString: "##0.00\"%\"",
+      indexLabel: "{y}",
+      dataPoints: chartValues,
+    }]
+  }
+
+  return (
+    <CanvasJSChart options={_options} />
+  )
+}

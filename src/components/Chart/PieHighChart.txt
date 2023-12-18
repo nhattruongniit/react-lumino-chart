@@ -1,0 +1,67 @@
+import React from 'react'
+import * as Highcharts from 'highcharts';
+
+export function PieHighChart({  options, chartValues = [] }) {
+  const chartRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if(!chartRef.current) return;
+
+    Highcharts.chart(chartRef.current, {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: '',
+      },
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+        }]
+      },
+      accessibility: {
+        enabled: false,
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.1f} %'
+          },
+          showInLegend: options.legend.enabled
+        },
+        series: {
+          dataLabels: {
+            enabled: false,
+            format: '{point.name}: {point.y:.1f}%'
+          }
+        }
+      },
+      tooltip: {
+        enabled: options.tooltip.enabled,
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+      },
+  
+      series: [
+        {
+          name: 'Variables',
+          colorByPoint: true,
+          data: chartValues,
+          colors: options.color
+        }
+      ],
+    });
+  }, [])
+
+  return (
+    <div ref={chartRef} />
+  )
+}

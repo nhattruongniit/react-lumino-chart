@@ -1,0 +1,39 @@
+.luminoArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.luminoBox > * {
+  height:   100%;
+  width:    100%;
+  overflow: hidden;
+}
+
+.luminoBox {
+  height: calc(100vh - 32px);
+}
+
+.content {
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 2px 8px;
+  border: 1px solid #c0c0c0;
+  border-top: none;
+  background: white;
+}
+
+.lm-TabBar-tab {
+  box-sizing: content-box;
+}
+
+.lm-TabBar-tabCloseIcon {
+  cursor: pointer;
+}

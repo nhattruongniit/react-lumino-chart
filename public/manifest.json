@@ -1,0 +1,22 @@
+{
+  "name": "Tony Usonia Charts",
+  "description": "Charts results from EnergyPlus™ simulation",
+  "version": "0.1.17",
+  "license": "Usonia Labs",
+  "homepage": "https://gitlab.usonia.io/Usonia/Apps/react-apps/ibm-chart-addon",
+  "repository": "git@gitlab.usonia.io:Usonia/Apps/react-apps/ibm-chart-addon.git",
+
+  "icon": "https://usonialabs-simulationresultsandcharts.co.uk/logo.svg",
+
+  "tags": ["Add-on", "Workspaces", "Usonia Labs", "EnergyPlus™"],
+  "categories": ["output:variables", "output:meter", "results", "charts"],
+  "whatsnew": ["Update react components", "bugfix", "[20-09-2021] Braking Changes UPDATE to usonia-addon-utils"],
+  "contexts": [
+    "idf_api",
+    "pusher",
+    "project",
+    "simulation"
+  ],
+  "size": { "width": 637, "height": 545 }
+}
+
